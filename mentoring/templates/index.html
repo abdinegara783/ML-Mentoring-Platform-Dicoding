@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mentoring Platform</title>
+</head>
+<body>
+    <h1>Welcome to Mentoring Platform</h1>
+    <h2>Add Mentee</h2>
+    <form action="/add_mentee" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="needs">Needs:</label><br>
+        <textarea id="needs" name="needs"></textarea><br><br>
+        <input type="submit" value="Add Mentee">
+    </form>
+    <hr>
+    <h2>Match Mentee</h2>
+    <form action="/match_mentee" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="needs">Needs:</label><br>
+        <textarea id="needs" name="needs"></textarea><br><br>
+        <input type="submit" value="Match Mentee">
+    </form>
+</body>
+</html>
