@@ -3,8 +3,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import pandas as pd
+# import nltk
+# nltk.download('stopwords')
 
-df_mentor = pd.read_csv("C:/Users/Asus/pyton for data science/df_mentor_fix1 (1).csv")
+# nltk.download('punkt')
+
+df_mentor = pd.read_csv("C:/laragon/www/ML-Mentoring-Platform-Dicoding/App/df_mentor_fix1 (1).csv")
 df_mentor['TF_IDF'] = df_mentor[['about', 'Learning_path', 'skills']].apply(lambda x: ', '.join(x.dropna().astype(str)), axis=1)
 class Mentee:
     def __init__(self, name, needs):
@@ -73,11 +77,11 @@ class MentoringPlatform:
                 print(f"Name     : {mentor.name}")
                 print(f"Rating   : {mentor.rating}")
                 print(f"Jobs     : {mentor.jobs}")
-                print(f"Pictures : {mentor.pictures}")
                 print()
         else:
             print(f"tidak ditemukan mentor yang cocok.")
 name=["Android", "Front-End", "Back-End", "iOS", "Cloud", "Machine Learning", "UI/UX", "Game", "web", "analys"]
+
 platform = MentoringPlatform()
 
 
@@ -88,3 +92,4 @@ for index, row in df_mentor.iterrows():
 
 # Fitting vectorizer
 platform.fit_vectorizer()
+
