@@ -4,7 +4,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import pandas as pd
 
-df_mentor = pd.read_csv("C:/laragon/www/ML-Mentoring-Platform-Dicoding/App/df_mentor_fix1 (1).csv")
+df_mentor = pd.read_csv("C:/Users/Asus/pyton for data science/df_mentor_fix1 (1).csv")
 df_mentor['TF_IDF'] = df_mentor[['about', 'Learning_path', 'skills']].apply(lambda x: ', '.join(x.dropna().astype(str)), axis=1)
 class Mentee:
     def __init__(self, name, needs):
@@ -12,13 +12,14 @@ class Mentee:
         self.needs = needs
 
 class Mentor:
-    def __init__(self, mentor_id, name, expertise, rating, jobs, pictures):
+    def __init__(self, mentor_id, name, expertise, rating, jobs, pictures, experience_level):
         self.mentor_id = mentor_id
         self.name = name
         self.expertise = expertise
         self.rating = rating
         self.jobs = jobs
         self.pictures = pictures
+        self.experience_level = experience_level
 
 
 class MentoringPlatform:
@@ -48,7 +49,7 @@ class MentoringPlatform:
             corpus.append(self.preprocess_text(mentor.expertise))
         self.vectorizer.fit(corpus)
 
-    def find_mentor(self, mentee_name, mentee_needs):
+    def find_mentor(self, mentee_name, mentee_needs, mentee_experience_level):
         mentee_needs = self.preprocess_text(mentee_needs)
         mentee_vector = self.vectorizer.transform([mentee_needs])
 
@@ -58,22 +59,23 @@ class MentoringPlatform:
             mentor_vector = self.vectorizer.transform([mentor_expertise])
 
             similarity_score = cosine_similarity(mentee_vector, mentor_vector)[0][0]
-            if similarity_score > 0:
+            if similarity_score > 0 and mentor.experience_level == mentee_experience_level:
                 matched_mentors.append((mentor, similarity_score))
         matched_mentors = sorted(matched_mentors, key=lambda x: (x[1] + x[0].rating), reverse=True)
 
         return matched_mentors
 
-    def match_mentee_with_mentor(self, mentee_name, mentee_needs):
-        matched_mentors = self.find_mentor(mentee_name, mentee_needs)
+    def match_mentee_with_mentor(self, mentee_name, mentee_needs, mentee_experience_level):
+        matched_mentors = self.find_mentor(mentee_name, mentee_needs, mentee_experience_level)
         if len(matched_mentors) > 0:
             print(f"Kamu cocok dengan mentor:")
             for mentor, similarity_score in matched_mentors:
                 print(f"id       : {mentor.mentor_id}")
-                print(f"photoProfile : {mentor.pictures}")
                 print(f"fullName     : {mentor.name}")
+                print(f"Experience_Level :{mentor.experience_level}")
                 print(f"job     : {mentor.jobs}")
                 print(f"averageRating   : {mentor.rating}")
+                print(f"photoProfile : {mentor.pictures}")
                 print()
             return matched_mentors               
         else:
@@ -84,7 +86,7 @@ platform = MentoringPlatform()
 
 for index, row in df_mentor.iterrows():
     mentor_expertise = ' '.join(row['TF_IDF'].split(","))
-    mentor = Mentor(row['ID'], row['name'], mentor_expertise, row['rating'], row['Jobs'], row['Pictures'])
+    mentor = Mentor(row['ID'], row['name'], mentor_expertise, row['rating'], row['Jobs'], row['Pictures'], row['experience_level'])
     platform.add_mentor(mentor)
 
 # Fitting vectorizer
