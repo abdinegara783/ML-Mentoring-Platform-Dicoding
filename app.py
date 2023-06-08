@@ -32,4 +32,4 @@ def match_mentee():
 # Menjalankan aplikasi Flask
 if __name__ == "__main__":
     # Fitting vectorizer
-    app.run()
+    app.run(port = 5555)
