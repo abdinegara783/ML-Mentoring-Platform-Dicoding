@@ -11,14 +11,6 @@ mentees = mydb["mentees"]
 mentorsCol = mydb["mentors"]
 reviews = mydb["reviews"]
 
-df_mentor = pd.read_csv(
-    "/Users/cisnux/ApplicationDevelopments/ML-Mentoring-Platform-Dicoding/App/df_mentor_fix1 (1).csv"
-)
-df_mentor["TF_IDF"] = df_mentor[["about", "Learning_path", "skills"]].apply(
-    lambda x: ", ".join(x.dropna().astype(str)), axis=1
-)
-
-
 class Mentee:
     def __init__(self, name, needs):
         self.name = name
@@ -197,22 +189,3 @@ def setMentorsInput(userId):
             )
     platform.fit_vectorizer()
     return platform
-
-
-platform = MentoringPlatform()
-
-
-for index, row in df_mentor.iterrows():
-    mentor_expertise = " ".join(row["TF_IDF"].split(","))
-    mentor = Mentor(
-        row["ID"],
-        row["name"],
-        mentor_expertise,
-        row["rating"],
-        row["Jobs"],
-        row["Pictures"],
-    )
-    platform.add_mentor(mentor)
-
-# Fitting vectorizer
-platform.fit_vectorizer()
