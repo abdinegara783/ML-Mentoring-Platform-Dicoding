@@ -4,7 +4,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import pandas as pd
 
-df_mentor = pd.read_csv("C:/laragon/www/ML-Mentoring-Platform-Dicoding/App/df_mentor_fix1 (1).csv")
+df_mentor = pd.read_csv("C:/Users/Asus/pyton for data science/df_mentor_fix1 (1).csv")
 df_mentor['TF_IDF'] = df_mentor[['about', 'Learning_path', 'skills']].apply(lambda x: ', '.join(x.dropna().astype(str)), axis=1)
 class Mentee:
     def __init__(self, name, needs):
@@ -69,13 +69,12 @@ class MentoringPlatform:
         if len(matched_mentors) > 0:
             print(f"Kamu cocok dengan mentor:")
             for mentor, similarity_score in matched_mentors:
-                print(f"id       : {mentor.mentor_id}")
-                print(f"photoProfile : {mentor.pictures}")
-                print(f"fullName     : {mentor.name}")
-                print(f"job     : {mentor.jobs}")
-                print(f"averageRating   : {mentor.rating}")
+                print(f"ID       : {mentor.mentor_id}")
+                print(f"Name     : {mentor.name}")
+                print(f"Rating   : {mentor.rating}")
+                print(f"Jobs     : {mentor.jobs}")
+                print(f"Pictures : {mentor.pictures}")
                 print()
-            return matched_mentors               
         else:
             print(f"tidak ditemukan mentor yang cocok.")
 name=["Android", "Front-End", "Back-End", "iOS", "Cloud", "Machine Learning", "UI/UX", "Game", "web", "analys"]
