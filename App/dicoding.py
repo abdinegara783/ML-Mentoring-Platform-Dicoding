@@ -49,7 +49,7 @@ class Mentor:
             "id": self.mentor_id,
             "fullName": self.name,
             "expertises": self.expertise,
-            "rating": self.rating,
+            "averageRating": self.rating,
             "job": self.jobs,
             "photoProfile": self.pictures,
         }
