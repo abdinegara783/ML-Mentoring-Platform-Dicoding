@@ -24,7 +24,7 @@ def match_mentee():
         platform = setMentorsInput(json["userId"])
         result = platform.match_mentee_with_mentor(json["fullName"], json["needs"])
         result_encoded = list(map(lambda mentor: mentor.__dict__(), result))
-        return jsonify({"status": "success", "data": result_encoded})
+        return jsonify({"status": "success", "mentors": result_encoded})
     else:
         return "Content-Type not supported!"
 
