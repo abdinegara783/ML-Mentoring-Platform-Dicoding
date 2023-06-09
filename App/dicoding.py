@@ -31,7 +31,7 @@ class GetMentor:
             "fullName": self.fullName,
             "photoProfile": self.profilePicture,
             "job": self.job,
-            "rating": self.rating,
+            "averageRating": self.rating,
         }
 
 
@@ -43,16 +43,6 @@ class Mentor:
         self.rating = rating
         self.jobs = jobs
         self.pictures = pictures
-
-    def __dict__(self):
-        return {
-            "id": self.mentor_id,
-            "fullName": self.name,
-            "expertises": self.expertise,
-            "averageRating": self.rating,
-            "job": self.jobs,
-            "photoProfile": self.pictures,
-        }
 
 
 class MentoringPlatform:
