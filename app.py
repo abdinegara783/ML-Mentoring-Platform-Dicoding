@@ -16,20 +16,17 @@ app = Flask(__name__)
 
 
 # Route untuk mencocokkan mentee dengan mentor
-@app.route("/matchmaking", methods=["POST"])
-def match_mentee():
-    content_type = request.headers.get("Content-Type")
-    if content_type == "application/json":
-        json = request.get_json()
-        platform = setMentorsInput(json["userId"])
-        result = platform.match_mentee_with_mentor(json["fullName"], json["needs"])
-        result_encoded = list(map(lambda mentor: mentor.__dict__(), result))
-        return jsonify({"status": "success", "mentors": result_encoded})
-    else:
-        return "Content-Type not supported!"
+@app.route("/matchmaking/<userId>", methods=["GET"])
+def match_mentee(userId):
+    fullName = request.args.get('fullName')
+    needs = request.args.get('needs')
+    platform = setMentorsInput(userId)
+    result = platform.match_mentee_with_mentor(fullName, needs)
+    result_encoded = list(map(lambda mentor: mentor.__dict__(), result))
+    return jsonify({"status": "success", "mentors": result_encoded})
 
 
 # Menjalankan aplikasi Flask
 if __name__ == "__main__":
     # Fitting vectorizer
-    app.run(port = 5555)
+    app.run(port=5552)
